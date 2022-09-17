@@ -4,6 +4,7 @@ import android.banananabandit.dailyexerciseapp.databinding.ActivityMainBinding
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.widget.FrameLayout
 import android.widget.Toast
 
@@ -20,12 +21,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, ExerciseActivity::class.java)
             startActivity(intent)
         }
-
-        // how much code is reduced through viewBinding
-//        val frameLayoutStartButton : FrameLayout = findViewById(R.id.frame_layout_start)
-//        frameLayoutStartButton.setOnClickListener {
-//            Toast.makeText(this, "press", Toast.LENGTH_SHORT).show()
-//        }
     }
 
 }
