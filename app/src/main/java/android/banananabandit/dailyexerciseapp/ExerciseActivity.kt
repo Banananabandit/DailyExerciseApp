@@ -17,10 +17,15 @@ class ExerciseActivity : AppCompatActivity() {
     private var exerciseTimer : CountDownTimer? = null
     private var exerciseProgress = 0
 
+    private var exerciseList : ArrayList<ExerciseModel>? = null
+    private var currentExercise = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityExerciseBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        exerciseList = Constants.getExercises()
 
         setSupportActionBar(binding.exerciseActionBar)
 
@@ -46,6 +51,7 @@ class ExerciseActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
+                currentExercise++
                 setUpExerciseView()
             }
 
