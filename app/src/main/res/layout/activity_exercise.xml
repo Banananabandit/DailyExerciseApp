@@ -18,19 +18,19 @@
         />
 
     <TextView
-        android:id="@+id/exercise_name"
+        android:id="@+id/rest_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="exercise 1"
-        android:textColor="@color/black"
+        android:text="GET READY"
+        android:textColor="@color/white"
         android:textSize="22sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayoutRest"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <FrameLayout
-        android:id="@+id/frameLayout"
+        android:id="@+id/frameLayoutRest"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_margin="10dp"
@@ -70,8 +70,20 @@
         </LinearLayout>
     </FrameLayout>
 
+    <TextView
+        android:id="@+id/exercise_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Exercise Name Here"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayoutRest"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <FrameLayout
-        android:id="@+id/frameLayout_exercise"
+        android:id="@+id/frameLayoutExercise"
         tools:visibility="visible"
         android:visibility="gone"
         android:layout_width="100dp"
@@ -82,6 +94,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/exerciseActionBar">
+
+
 
         <ProgressBar
             android:id="@+id/progress_bar_exercise"

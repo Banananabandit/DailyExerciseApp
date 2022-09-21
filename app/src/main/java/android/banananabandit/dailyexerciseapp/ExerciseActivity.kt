@@ -69,13 +69,24 @@ class ExerciseActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                Toast.makeText(this@ExerciseActivity, "Exercise is finished", Toast.LENGTH_SHORT).show()
+                if (currentExercise < exerciseList?.size!! - 1) {
+                    setUpRestView()
+                }else {
+                    Toast.makeText(this@ExerciseActivity, "Workout is finished!", Toast.LENGTH_SHORT).show()
+                }
+
+
             }
 
         }.start()
     }
 
     private fun setUpRestView() {
+        binding.progressBar.visibility = View.VISIBLE
+        binding.restText.visibility = View.VISIBLE
+        binding.exerciseName.visibility = View.INVISIBLE
+        binding.frameLayoutExercise.visibility = View.INVISIBLE
+
         if (restTimer != null) {
             restTimer?.cancel()
             restProgress = 0
@@ -84,13 +95,17 @@ class ExerciseActivity : AppCompatActivity() {
     }
     private fun setUpExerciseView() {
         binding.progressBar.visibility = View.INVISIBLE
-        binding.exerciseName.text = "Exercise name here"
+        binding.restText.visibility = View.INVISIBLE
+        binding.exerciseName.visibility = View.VISIBLE
         binding.frameLayoutExercise.visibility = View.VISIBLE
 
         if (exerciseTimer != null) {
             exerciseTimer?.cancel()
             exerciseProgress = 0
         }
+
+        binding.exerciseName.text = exerciseList!![currentExercise].getName()
+
 
         setExerciseProgressBar()
     }
