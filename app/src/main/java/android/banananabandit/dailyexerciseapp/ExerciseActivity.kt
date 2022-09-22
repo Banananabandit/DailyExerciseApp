@@ -18,7 +18,7 @@ class ExerciseActivity : AppCompatActivity() {
     private var exerciseProgress = 0
 
     private var exerciseList : ArrayList<ExerciseModel>? = null
-    private var currentExercise = -1
+    private var currentExercise = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +51,6 @@ class ExerciseActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                currentExercise++
                 setUpExerciseView()
             }
 
@@ -70,6 +69,7 @@ class ExerciseActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 if (currentExercise < exerciseList?.size!! - 1) {
+                    currentExercise++
                     setUpRestView()
                 }else {
                     Toast.makeText(this@ExerciseActivity, "Workout is finished!", Toast.LENGTH_SHORT).show()
@@ -86,11 +86,14 @@ class ExerciseActivity : AppCompatActivity() {
         binding.restText.visibility = View.VISIBLE
         binding.exerciseName.visibility = View.INVISIBLE
         binding.frameLayoutExercise.visibility = View.INVISIBLE
+        binding.nextExercise.visibility = View.VISIBLE
+        binding.nextExerciseLabel.visibility = View.VISIBLE
 
         if (restTimer != null) {
             restTimer?.cancel()
             restProgress = 0
         }
+        binding.nextExercise.text = exerciseList!![currentExercise].getName()
         setRestProgressBar()
     }
     private fun setUpExerciseView() {
@@ -98,6 +101,8 @@ class ExerciseActivity : AppCompatActivity() {
         binding.restText.visibility = View.INVISIBLE
         binding.exerciseName.visibility = View.VISIBLE
         binding.frameLayoutExercise.visibility = View.VISIBLE
+        binding.nextExercise.visibility = View.INVISIBLE
+        binding.nextExerciseLabel.visibility = View.INVISIBLE
 
         if (exerciseTimer != null) {
             exerciseTimer?.cancel()
