@@ -1,9 +1,12 @@
 package android.banananabandit.dailyexerciseapp
 
 import android.banananabandit.dailyexerciseapp.databinding.ActivityExerciseBinding
+import android.media.MediaPlayer
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.provider.MediaStore
 import android.view.View
 import android.widget.Toast
 
@@ -19,6 +22,9 @@ class ExerciseActivity : AppCompatActivity() {
 
     private var exerciseList : ArrayList<ExerciseModel>? = null
     private var currentExercise = 0
+
+    // 1. Add a media player object
+    private lateinit var player : MediaPlayer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,6 +88,18 @@ class ExerciseActivity : AppCompatActivity() {
     }
 
     private fun setUpRestView() {
+
+        // 2. Choose a method where to set up the sound, do it in try/catch block
+        try {
+            val soundURI = Uri.parse("android.resource://android.banananabandit.dailyexerciseapp/" + R.raw.fart)
+            player = MediaPlayer.create(applicationContext, soundURI)
+            player.isLooping = false
+            player.start()
+        } catch (e : Exception) {
+            e.printStackTrace()
+        }
+
+
         binding.progressBar.visibility = View.VISIBLE
         binding.restText.visibility = View.VISIBLE
         binding.exerciseName.visibility = View.INVISIBLE
@@ -125,6 +143,8 @@ class ExerciseActivity : AppCompatActivity() {
             exerciseTimer?.cancel()
             exerciseProgress = 0
         }
+
+        player.stop()
         //Set binding to null if we make it nullable
     }
 }
