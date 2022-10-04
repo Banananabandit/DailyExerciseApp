@@ -57,6 +57,7 @@ class ExerciseActivity : AppCompatActivity() {
         binding.exerciseStatus.adapter = exerciseAdapter
     }
 
+    // These two methods are the best places to trigger notify adapter to change the color of the current exercise
     private fun setRestProgressBar() {
         restTimer = object : CountDownTimer(25000, 1000) {
             override fun onTick(p0: Long) {
@@ -66,6 +67,9 @@ class ExerciseActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
+                exerciseList!![currentExercise].setExerciseSelected(true)
+                // using this insetead datasetchanged- which is lazy
+                exerciseAdapter.notifyItemChanged(currentExercise)
                 setUpExerciseView()
             }
 
@@ -82,6 +86,10 @@ class ExerciseActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
+                exerciseList!![currentExercise].setExerciseSelected(false)
+                exerciseList!![currentExercise].setExerciseCompleted(true)
+                // using this insetead datasetchanged- which is lazy
+                exerciseAdapter.notifyItemChanged(currentExercise)
                 if (currentExercise < exerciseList?.size!! - 1) {
                     currentExercise++
                     setUpRestView()
@@ -96,7 +104,6 @@ class ExerciseActivity : AppCompatActivity() {
     }
 
     private fun setUpRestView() {
-
         try {
             val soundURI = Uri.parse("android.resource://android.banananabandit.dailyexerciseapp/" + R.raw.fart)
             player = MediaPlayer.create(applicationContext, soundURI)
