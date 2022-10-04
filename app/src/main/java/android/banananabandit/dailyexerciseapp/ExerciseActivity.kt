@@ -8,7 +8,9 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.provider.MediaStore
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 
 class ExerciseActivity : AppCompatActivity() {
     private lateinit var binding : ActivityExerciseBinding
@@ -16,15 +18,15 @@ class ExerciseActivity : AppCompatActivity() {
     private var restTimer : CountDownTimer? = null
     private var restProgress = 0
 
-    // Most likely I will not need this functionality in my version of the app
     private var exerciseTimer : CountDownTimer? = null
     private var exerciseProgress = 0
 
     private var exerciseList : ArrayList<ExerciseModel>? = null
     private var currentExercise = 0
 
-    // 1. Add a media player object
     private lateinit var player : MediaPlayer
+
+    private lateinit var exerciseAdapter : ExerciseStatusAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,11 +46,18 @@ class ExerciseActivity : AppCompatActivity() {
             onBackPressed()
         }
         setUpRestView()
+        setUpExerciseRecyclerView()
 
     }
 
+    private fun setUpExerciseRecyclerView() {
+        binding.exerciseStatus.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        exerciseAdapter = ExerciseStatusAdapter(exerciseList!!)
+        binding.exerciseStatus.adapter = exerciseAdapter
+    }
+
     private fun setRestProgressBar() {
-//        binding.progressBar.progress = restProgress
         restTimer = object : CountDownTimer(25000, 1000) {
             override fun onTick(p0: Long) {
                 restProgress++
@@ -63,7 +72,6 @@ class ExerciseActivity : AppCompatActivity() {
         }.start()
     }
 
-    //Most likely not going to need this functionality for my version of the app
     private fun setExerciseProgressBar() {
         binding.progressBarExercise.progress = exerciseProgress
         exerciseTimer = object : CountDownTimer(25000, 1000) {
@@ -89,7 +97,6 @@ class ExerciseActivity : AppCompatActivity() {
 
     private fun setUpRestView() {
 
-        // 2. Choose a method where to set up the sound, do it in try/catch block
         try {
             val soundURI = Uri.parse("android.resource://android.banananabandit.dailyexerciseapp/" + R.raw.fart)
             player = MediaPlayer.create(applicationContext, soundURI)
@@ -145,6 +152,5 @@ class ExerciseActivity : AppCompatActivity() {
         }
 
         player.stop()
-        //Set binding to null if we make it nullable
     }
 }
