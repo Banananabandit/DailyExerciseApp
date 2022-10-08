@@ -1,6 +1,8 @@
 package android.banananabandit.dailyexerciseapp
 
+import android.app.Dialog
 import android.banananabandit.dailyexerciseapp.databinding.ActivityExerciseBinding
+import android.banananabandit.dailyexerciseapp.databinding.BackNavConfirmationDialogBinding
 import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
@@ -47,11 +49,31 @@ class ExerciseActivity : AppCompatActivity() {
 
 
         binding.exerciseActionBar.setNavigationOnClickListener {
-            onBackPressed()
+            showBackButtonConfirmationDialog()
         }
         setUpRestView()
         setUpExerciseRecyclerView()
 
+    }
+
+    override fun onBackPressed() {
+        showBackButtonConfirmationDialog()
+    }
+
+    private fun showBackButtonConfirmationDialog() {
+        val customDialog = Dialog(this)
+        //data binding to prepare this dialog. We need to use it because this layout is not included in our initial binding duh
+        val dialogBinding = BackNavConfirmationDialogBinding.inflate(layoutInflater)
+        customDialog.setContentView(dialogBinding.root)
+        customDialog.setCanceledOnTouchOutside(false)
+        dialogBinding.backConfirmationYes.setOnClickListener {
+            this@ExerciseActivity.finish()
+            customDialog.dismiss()
+        }
+        dialogBinding.backConfirmationNo.setOnClickListener {
+            customDialog.dismiss()
+        }
+        customDialog.show()
     }
 
     private fun setUpExerciseRecyclerView() {
