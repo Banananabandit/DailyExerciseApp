@@ -1,6 +1,7 @@
 package android.banananabandit.dailyexerciseapp
 
 import android.banananabandit.dailyexerciseapp.databinding.ActivityExerciseBinding
+import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 class ExerciseActivity : AppCompatActivity() {
     private lateinit var binding : ActivityExerciseBinding
+
+    private var restTimerDuration : Long = 1
+    private var exerciseTimerDuration : Long = 1
 
     private var restTimer : CountDownTimer? = null
     private var restProgress = 0
@@ -59,7 +63,7 @@ class ExerciseActivity : AppCompatActivity() {
 
     // These two methods are the best places to trigger notify adapter to change the color of the current exercise
     private fun setRestProgressBar() {
-        restTimer = object : CountDownTimer(25000, 1000) {
+        restTimer = object : CountDownTimer(restTimerDuration * 1000, 1000) {
             override fun onTick(p0: Long) {
                 restProgress++
                 binding.progressBar.progress = 25 - restProgress
@@ -78,7 +82,7 @@ class ExerciseActivity : AppCompatActivity() {
 
     private fun setExerciseProgressBar() {
         binding.progressBarExercise.progress = exerciseProgress
-        exerciseTimer = object : CountDownTimer(25000, 1000) {
+        exerciseTimer = object : CountDownTimer(exerciseTimerDuration * 1000, 1000) {
             override fun onTick(p0: Long) {
                 exerciseProgress++
                 binding.progressBarExercise.progress = 25 - exerciseProgress
@@ -86,15 +90,19 @@ class ExerciseActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                exerciseList!![currentExercise].setExerciseSelected(false)
-                exerciseList!![currentExercise].setExerciseCompleted(true)
-                // using this insetead datasetchanged- which is lazy
-                exerciseAdapter.notifyItemChanged(currentExercise)
+
                 if (currentExercise < exerciseList?.size!! - 1) {
+                    exerciseList!![currentExercise].setExerciseSelected(false)
+                    exerciseList!![currentExercise].setExerciseCompleted(true)
+                    // using this insetead datasetchanged- which is lazy
+                    exerciseAdapter.notifyItemChanged(currentExercise)
                     currentExercise++
                     setUpRestView()
                 }else {
                     Toast.makeText(this@ExerciseActivity, "Workout is finished!", Toast.LENGTH_SHORT).show()
+                    finish()
+                    val intent = Intent(this@ExerciseActivity, FinishActivity::class.java)
+                    startActivity(intent)
                 }
 
 
