@@ -12,6 +12,7 @@
         <entry key="app/src/main/res/drawable/item_color_accent_border_ripple_bg.xml" value="0.2864583333333333" />
         <entry key="app/src/main/res/layout/activity_exercise.xml" value="0.2957345971563981" />
         <entry key="app/src/main/res/layout/activity_finish.xml" value="0.2703125" />
+        <entry key="app/src/main/res/layout/activity_history.xml" value="0.25625" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25625" />
         <entry key="app/src/main/res/layout/back_nav_confirmation_dialog.xml" value="0.2703125" />
         <entry key="app/src/main/res/layout/item_exercise.xml" value="0.2703125" />

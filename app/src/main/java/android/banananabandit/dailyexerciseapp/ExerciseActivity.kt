@@ -42,7 +42,6 @@ class ExerciseActivity : AppCompatActivity() {
         exerciseList = Constants.getExercises()
 
         setSupportActionBar(binding.exerciseActionBar)
-
         if (supportActionBar != null) {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
