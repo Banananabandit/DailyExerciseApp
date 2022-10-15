@@ -3,7 +3,10 @@ package android.banananabandit.dailyexerciseapp
 import android.banananabandit.dailyexerciseapp.databinding.ActivityFinishBinding
 import android.banananabandit.dailyexerciseapp.room.DateApp
 import android.banananabandit.dailyexerciseapp.room.HistoryDao
+<<<<<<< HEAD
 import android.banananabandit.dailyexerciseapp.room.HistoryEntity
+=======
+>>>>>>> 8a06e9e33bcb29f6b2e0b3e729a613fc9af33d3f
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -50,6 +53,10 @@ class FinishActivity : AppCompatActivity() {
         lifecycleScope.launch {
             historyDao.insert(HistoryEntity(date))
         }
+
+    }
+
+    private fun addDateToHistory(historyDao: HistoryDao) {
 
     }
 
