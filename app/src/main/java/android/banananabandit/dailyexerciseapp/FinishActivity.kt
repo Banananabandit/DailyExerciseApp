@@ -1,6 +1,8 @@
 package android.banananabandit.dailyexerciseapp
 
 import android.banananabandit.dailyexerciseapp.databinding.ActivityFinishBinding
+import android.banananabandit.dailyexerciseapp.room.DateApp
+import android.banananabandit.dailyexerciseapp.room.HistoryDao
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
@@ -13,6 +15,9 @@ class FinishActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbarFinishActivity)
 
+        // This is how we get the DAO
+        val historyDao = (application as DateApp).db.getHistoryDao()
+
         if (supportActionBar != null) {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
@@ -24,6 +29,10 @@ class FinishActivity : AppCompatActivity() {
         binding.buttonFinish.setOnClickListener {
             finish()
         }
+
+    }
+
+    private fun addDateToHistory(historyDao: HistoryDao) {
 
     }
 
